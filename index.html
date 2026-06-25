@@ -1,0 +1,2337 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lumina Pro Demo</title>
+    <style>
+      :root {
+        --bg: #f8faf8;
+        --text: #17201d;
+        --muted: #5d6b66;
+        --line: rgba(0, 0, 0, 0.1);
+        --primary: #346b5c;
+        --secondary: #f3d9c5;
+        --accent: #d08770;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, sans-serif;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .hero {
+        min-height: 88vh;
+        padding: 28px;
+        color: white;
+        background: linear-gradient(135deg, var(--primary), #20332f 55%, var(--accent));
+      }
+
+      .wrap {
+        width: min(1120px, 100%);
+        margin: 0 auto;
+      }
+
+      .nav,
+      .switcher,
+      .brand,
+      .actions,
+      .profile,
+      .stats,
+      .cards {
+        display: flex;
+      }
+
+      .nav {
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        align-items: center;
+        gap: 12px;
+      }
+
+      .avatar {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--secondary);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .small {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+      }
+
+      .brand-name {
+        margin: 2px 0 0;
+        font-weight: 700;
+      }
+
+      .switcher {
+        gap: 8px;
+      }
+
+      .switcher button,
+      .primary-button,
+      .outline-button {
+        min-height: 42px;
+        border-radius: 999px;
+        border: 0;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .switcher button {
+        padding: 0 16px;
+        background: rgba(255, 255, 255, 0.16);
+        color: white;
+      }
+
+      .switcher button.active {
+        background: white;
+        color: var(--primary);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 44px;
+        align-items: end;
+        padding: 90px 0 44px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 18px 0 0;
+        font-size: clamp(40px, 7vw, 68px);
+        line-height: 1.04;
+      }
+
+      .subtitle {
+        max-width: 650px;
+        margin: 24px 0 0;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 19px;
+        line-height: 1.7;
+      }
+
+      .actions {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .primary-button {
+        padding: 0 24px;
+        background: var(--secondary);
+        color: var(--primary);
+      }
+
+      .outline-button {
+        padding: 0 24px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: transparent;
+        color: white;
+      }
+
+      .panel {
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.13);
+        padding: 20px;
+      }
+
+      .card {
+        border-radius: 8px;
+        background: white;
+        color: var(--text);
+        padding: 22px;
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+      }
+
+      .profile {
+        align-items: center;
+        gap: 16px;
+      }
+
+      .photo {
+        width: 68px;
+        height: 68px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--primary);
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .label {
+        margin: 0;
+        color: #6b7772;
+        font-size: 14px;
+      }
+
+      h2 {
+        margin: 4px 0 0;
+        font-size: 23px;
+      }
+
+      .bio {
+        margin: 20px 0 0;
+        color: #4c5b55;
+        line-height: 1.7;
+      }
+
+      .stats {
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .stat {
+        flex: 1;
+        min-height: 86px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #f3f6f4;
+        color: #3d4b45;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .dashboard {
+        padding: 34px 28px 54px;
+      }
+
+      .dash-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .dash-head h2 {
+        margin: 0;
+        font-size: 32px;
+      }
+
+      .badge {
+        border-radius: 999px;
+        background: var(--primary);
+        color: white;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .cards {
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .mini-card {
+        flex: 1;
+        min-height: 118px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 18px;
+      }
+
+      .mini-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .mini-card strong {
+        display: block;
+        margin-top: 12px;
+        font-size: 28px;
+      }
+
+      .marketplace {
+        padding: 0 28px 64px;
+      }
+
+      .marketplace-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .marketplace-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .marketplace-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .marketplace-head p {
+        max-width: 650px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .marketplace-search {
+        display: grid;
+        grid-template-columns: 1fr 220px;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .marketplace-search input,
+      .marketplace-search select {
+        min-height: 46px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 8px;
+        padding: 0 12px;
+      }
+
+      .marketplace-layout {
+        display: grid;
+        grid-template-columns: 1fr 0.82fr;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .nutritionist-cards {
+        display: grid;
+        gap: 12px;
+      }
+
+      .nutritionist-card {
+        display: grid;
+        grid-template-columns: 86px 1fr;
+        gap: 14px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        background: #f7faf8;
+        cursor: pointer;
+        padding: 14px;
+        text-align: left;
+      }
+
+      .nutritionist-card.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary), transparent 82%);
+      }
+
+      .nutritionist-photo {
+        width: 86px;
+        height: 86px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--secondary);
+        color: var(--primary);
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .nutritionist-card h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .nutritionist-card p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .tag {
+        border-radius: 999px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 5px 9px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .public-profile {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 18px;
+      }
+
+      .public-profile h3 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .public-profile p {
+        color: #4c5b55;
+        line-height: 1.6;
+      }
+
+      .profile-price {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .price-box {
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .price-box span {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .price-box strong {
+        display: block;
+        margin-top: 7px;
+        color: var(--primary);
+        font-size: 21px;
+      }
+
+      .brand-editor {
+        padding: 0 28px 64px;
+      }
+
+      .editor-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .editor-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .editor-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .editor-head p {
+        max-width: 620px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .editor-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      .field label {
+        color: #33443d;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 8px;
+        padding: 12px;
+        color: var(--text);
+        outline: none;
+      }
+
+      .field textarea {
+        min-height: 86px;
+        resize: vertical;
+      }
+
+      .field input[type="color"] {
+        height: 46px;
+        padding: 4px;
+      }
+
+      .editor-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .save-button,
+      .reset-button {
+        min-height: 42px;
+        border-radius: 999px;
+        border: 0;
+        cursor: pointer;
+        padding: 0 18px;
+        font-weight: 700;
+      }
+
+      .save-button {
+        background: var(--primary);
+        color: white;
+      }
+
+      .reset-button {
+        background: #edf2ef;
+        color: #33443d;
+      }
+
+      .save-note {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .diary {
+        padding: 0 28px 64px;
+      }
+
+      .diary-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .diary-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .diary-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .diary-head p {
+        max-width: 620px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .diary-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .diary-form,
+      .diary-list {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 18px;
+      }
+
+      .diary-form h3,
+      .diary-list h3 {
+        margin: 0 0 16px;
+        font-size: 20px;
+      }
+
+      .diary-empty {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .diary-items {
+        display: grid;
+        gap: 12px;
+      }
+
+      .diary-item {
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .diary-item strong {
+        display: block;
+        color: var(--primary);
+      }
+
+      .diary-item p {
+        margin: 8px 0 0;
+        color: #4c5b55;
+        line-height: 1.5;
+      }
+
+      .diary-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .diary-chip {
+        border-radius: 999px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .nutritionist-panel {
+        padding: 0 28px 64px;
+      }
+
+      .panel-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .panel-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .panel-head p {
+        max-width: 620px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .panel-layout {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .patients-list,
+      .patient-detail {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 18px;
+      }
+
+      .patients-list h3,
+      .patient-detail h3 {
+        margin: 0 0 16px;
+        font-size: 20px;
+      }
+
+      .patient-buttons {
+        display: grid;
+        gap: 10px;
+      }
+
+      .patient-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        background: white;
+        color: var(--text);
+        cursor: pointer;
+        padding: 14px;
+        text-align: left;
+      }
+
+      .patient-button.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary), transparent 82%);
+      }
+
+      .patient-main {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .patient-avatar {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--secondary);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .patient-name {
+        display: block;
+        font-weight: 700;
+      }
+
+      .patient-sub {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .status {
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .status.good {
+        background: #dff3e6;
+        color: #24613a;
+      }
+
+      .status.watch {
+        background: #fff0d5;
+        color: #81530f;
+      }
+
+      .detail-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .detail-top h3 {
+        margin: 0;
+      }
+
+      .detail-top p {
+        margin: 6px 0 0;
+        color: var(--muted);
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .metric {
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--primary);
+        font-size: 22px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .timeline-item {
+        border-left: 3px solid var(--primary);
+        border-radius: 0 8px 8px 0;
+        background: white;
+        padding: 12px 14px;
+      }
+
+      .timeline-item strong {
+        display: block;
+        font-size: 14px;
+      }
+
+      .timeline-item p {
+        margin: 6px 0 0;
+        color: #4c5b55;
+        line-height: 1.5;
+      }
+
+      .invite-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .invite-row input {
+        flex: 1;
+        min-height: 42px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 8px;
+        padding: 0 12px;
+      }
+
+      .invite-row button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--primary);
+        color: white;
+        cursor: pointer;
+        padding: 0 16px;
+        font-weight: 700;
+      }
+
+      .patient-panel {
+        padding: 0 28px 72px;
+      }
+
+      .patient-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .patient-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .patient-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .patient-head p {
+        max-width: 620px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .patient-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .patient-summary,
+      .patient-content {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 18px;
+      }
+
+      .progress-card {
+        border-radius: 8px;
+        background: white;
+        padding: 18px;
+      }
+
+      .progress-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .progress-top h3 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .progress-bar {
+        height: 12px;
+        margin-top: 16px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e8eeea;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .patient-actions {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .patient-action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .patient-action strong {
+        display: block;
+      }
+
+      .patient-action span {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .content-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .content-card {
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        background: white;
+        padding: 16px;
+      }
+
+      .content-card strong {
+        display: block;
+        color: var(--primary);
+      }
+
+      .content-card p {
+        margin: 8px 0 0;
+        color: #4c5b55;
+        line-height: 1.5;
+      }
+
+      .commercial-panel {
+        padding: 0 28px 80px;
+      }
+
+      .commercial-shell {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 24px;
+      }
+
+      .commercial-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .commercial-head h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .commercial-head p {
+        max-width: 650px;
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .commercial-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .commercial-card {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 16px;
+      }
+
+      .commercial-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .commercial-card strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--primary);
+        font-size: 26px;
+      }
+
+      .commercial-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .client-table,
+      .new-client {
+        border-radius: 8px;
+        background: #f7faf8;
+        padding: 18px;
+      }
+
+      .client-table h3,
+      .new-client h3 {
+        margin: 0 0 16px;
+        font-size: 20px;
+      }
+
+      .client-row {
+        display: grid;
+        grid-template-columns: 1.1fr 0.7fr 0.7fr 0.7fr;
+        gap: 10px;
+        align-items: center;
+        border-radius: 8px;
+        background: white;
+        padding: 13px;
+      }
+
+      .client-row + .client-row {
+        margin-top: 10px;
+      }
+
+      .client-row.header {
+        background: transparent;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        padding-top: 0;
+      }
+
+      .client-name {
+        font-weight: 700;
+      }
+
+      .client-slug {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .plan-pill {
+        width: fit-content;
+        border-radius: 999px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .new-client-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .new-client-form input,
+      .new-client-form select {
+        min-height: 42px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 8px;
+        padding: 0 12px;
+      }
+
+      .new-client-form button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--primary);
+        color: white;
+        cursor: pointer;
+        padding: 0 16px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 760px) {
+        .grid,
+        .cards {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+        }
+
+        .nav,
+        .dash-head,
+        .marketplace-head,
+        .editor-head,
+        .diary-head,
+        .panel-head,
+        .patient-head,
+        .commercial-head,
+        .detail-top,
+        .invite-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .hero {
+          padding: 22px;
+        }
+
+        .editor-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .marketplace-search,
+        .marketplace-layout,
+        .nutritionist-card,
+        .profile-price {
+          grid-template-columns: 1fr;
+        }
+
+        .diary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .panel-layout,
+        .patient-grid,
+        .commercial-grid,
+        .commercial-metrics,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .client-row {
+          grid-template-columns: 1fr;
+        }
+
+        .invite-row input,
+        .invite-row button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="wrap">
+        <nav class="nav">
+          <div class="brand">
+            <div class="avatar" id="brandInitial">A</div>
+            <div>
+              <p class="small">App personalizado</p>
+              <p class="brand-name" id="appName">Aline Nutri</p>
+            </div>
+          </div>
+          <div class="switcher">
+            <button class="active" id="alineButton" type="button">Aline</button>
+            <button id="carlaButton" type="button">Carla</button>
+          </div>
+        </nav>
+
+        <div class="grid">
+          <div>
+            <p class="eyebrow" id="displayName">Dra. Aline Martins</p>
+            <h1 id="title">Seu acompanhamento estetico em um so lugar</h1>
+            <p class="subtitle" id="subtitle">
+              Rotina, evolucao e conteudos organizados pela Dra. Aline.
+            </p>
+            <div class="actions">
+              <button class="primary-button" type="button">Acessar meu app</button>
+              <button class="outline-button" id="editBrandButton" type="button">
+                Editar marca
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="card">
+              <div class="profile">
+                <div class="photo" id="profileInitial">A</div>
+                <div>
+                  <p class="label">Nutricionista</p>
+                  <h2 id="profileName">Dra. Aline Martins</h2>
+                </div>
+              </div>
+              <p class="bio" id="bio">
+                Nutricionista estetica focada em composicao corporal, energia e constancia.
+              </p>
+              <div class="stats">
+                <div class="stat">Diario</div>
+                <div class="stat">Evolucao</div>
+                <div class="stat">Seguro</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <div class="wrap">
+        <div class="dash-head">
+          <h2>Painel inicial</h2>
+          <div class="badge" id="tenantBadge">Tenant: aline</div>
+        </div>
+        <div class="cards">
+          <div class="mini-card">
+            <p>Pacientes</p>
+            <strong>24</strong>
+          </div>
+          <div class="mini-card">
+            <p>Diarios hoje</p>
+            <strong>11</strong>
+          </div>
+          <div class="mini-card">
+            <p>Conteudos</p>
+            <strong>8</strong>
+          </div>
+          <div class="mini-card">
+            <p>Marca</p>
+            <strong>Ativa</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="marketplace" id="marketplaceSection">
+      <div class="wrap">
+        <div class="marketplace-shell">
+          <div class="marketplace-head">
+            <div>
+              <h2>Vitrine de nutricionistas</h2>
+              <p>
+                A paciente encontra uma profissional, avalia especialidades e
+                solicita conexao. Depois disso, entra no app personalizado da nutricionista.
+              </p>
+            </div>
+            <div class="badge">Marketplace Lumina</div>
+          </div>
+
+          <div class="marketplace-search">
+            <input id="marketSearchInput" type="text" placeholder="Buscar por nome, cidade ou especialidade" />
+            <select id="marketFilterInput">
+              <option value="all">Todas especialidades</option>
+              <option value="emagrecimento">Emagrecimento</option>
+              <option value="estetica">Nutricao estetica</option>
+              <option value="performance">Performance</option>
+            </select>
+          </div>
+
+          <div class="marketplace-layout">
+            <div class="nutritionist-cards" id="marketCards"></div>
+
+            <aside class="public-profile">
+              <div class="profile">
+                <div class="photo" id="marketProfileInitial">A</div>
+                <div>
+                  <p class="label" id="marketProfileCity">Sao Paulo, SP</p>
+                  <h3 id="marketProfileName">Dra. Aline Martins</h3>
+                </div>
+              </div>
+              <p id="marketProfileBio">
+                Nutricionista estetica focada em composicao corporal, energia e constancia.
+              </p>
+              <div class="tag-row" id="marketProfileTags"></div>
+              <div class="profile-price">
+                <div class="price-box">
+                  <span>Consulta inicial</span>
+                  <strong id="marketProfilePrice">R$ 320</strong>
+                </div>
+                <div class="price-box">
+                  <span>Avaliacao</span>
+                  <strong id="marketProfileRating">4.9</strong>
+                </div>
+              </div>
+              <div class="editor-actions">
+                <button class="save-button" id="requestConnectionButton" type="button">
+                  Solicitar conexao
+                </button>
+                <button class="reset-button" id="openWhiteLabelButton" type="button">
+                  Ver app personalizado
+                </button>
+              </div>
+              <p class="save-note" id="connectionNote">
+                A conexao aparece como simulacao nesta demo.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-editor" id="brandEditor">
+      <div class="wrap">
+        <div class="editor-shell">
+          <div class="editor-head">
+            <div>
+              <h2>Personalizacao da nutricionista</h2>
+              <p>
+                Altere os campos abaixo para ver a capa do app mudar na hora.
+                Esta e a tela que no app real ficara no painel da nutricionista.
+              </p>
+            </div>
+            <div class="badge" id="editorBadge">Editando: Aline</div>
+          </div>
+
+          <div class="editor-grid">
+            <div class="field">
+              <label for="appNameInput">Nome do app</label>
+              <input id="appNameInput" type="text" />
+            </div>
+            <div class="field">
+              <label for="displayNameInput">Nome da nutricionista</label>
+              <input id="displayNameInput" type="text" />
+            </div>
+            <div class="field full">
+              <label for="titleInput">Frase principal da capa</label>
+              <input id="titleInput" type="text" />
+            </div>
+            <div class="field full">
+              <label for="subtitleInput">Subtitulo</label>
+              <textarea id="subtitleInput"></textarea>
+            </div>
+            <div class="field full">
+              <label for="bioInput">Apresentacao profissional</label>
+              <textarea id="bioInput"></textarea>
+            </div>
+            <div class="field">
+              <label for="primaryColorInput">Cor principal</label>
+              <input id="primaryColorInput" type="color" />
+            </div>
+            <div class="field">
+              <label for="secondaryColorInput">Cor secundaria</label>
+              <input id="secondaryColorInput" type="color" />
+            </div>
+            <div class="field">
+              <label for="accentColorInput">Cor de destaque</label>
+              <input id="accentColorInput" type="color" />
+            </div>
+          </div>
+
+          <div class="editor-actions">
+            <button class="save-button" id="saveBrandButton" type="button">
+              Salvar nesta demo
+            </button>
+            <button class="reset-button" id="resetBrandButton" type="button">
+              Restaurar padrao
+            </button>
+          </div>
+          <p class="save-note" id="saveNote">
+            As mudancas ficam salvas neste navegador para demonstracao.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="diary" id="diarySection">
+      <div class="wrap">
+        <div class="diary-shell">
+          <div class="diary-head">
+            <div>
+              <h2>Diario de evolucao</h2>
+              <p>
+                Simulacao do primeiro modulo do paciente. Os registros ficam
+                separados por nutricionista nesta demo.
+              </p>
+            </div>
+            <div class="badge" id="diaryBadge">Diario: aline</div>
+          </div>
+
+          <div class="diary-grid">
+            <div class="diary-form">
+              <h3>Novo registro</h3>
+              <div class="editor-grid">
+                <div class="field">
+                  <label for="diaryDateInput">Data</label>
+                  <input id="diaryDateInput" type="date" />
+                </div>
+                <div class="field">
+                  <label for="energyInput">Energia</label>
+                  <input id="energyInput" max="10" min="1" type="number" />
+                </div>
+                <div class="field">
+                  <label for="waterInput">Agua em copos</label>
+                  <input id="waterInput" max="20" min="0" type="number" />
+                </div>
+                <div class="field">
+                  <label for="moodInput">Como se sentiu</label>
+                  <input id="moodInput" type="text" placeholder="Ex: leve, inchada, disposta" />
+                </div>
+                <div class="field full">
+                  <label for="mealsInput">Refeicoes do dia</label>
+                  <textarea id="mealsInput" placeholder="Cafe, almoco, jantar e observacoes"></textarea>
+                </div>
+                <div class="field full">
+                  <label for="notesInput">Observacoes</label>
+                  <textarea id="notesInput" placeholder="Sintomas, fome, sono, treino ou comentarios"></textarea>
+                </div>
+              </div>
+              <div class="editor-actions">
+                <button class="save-button" id="saveDiaryButton" type="button">
+                  Salvar registro
+                </button>
+                <button class="reset-button" id="clearDiaryButton" type="button">
+                  Limpar diario demo
+                </button>
+              </div>
+            </div>
+
+            <div class="diary-list">
+              <h3>Historico do paciente</h3>
+              <div class="diary-items" id="diaryItems"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="nutritionist-panel" id="nutritionistPanel">
+      <div class="wrap">
+        <div class="panel-shell">
+          <div class="panel-head">
+            <div>
+              <h2>Painel da nutricionista</h2>
+              <p>
+                Visao de acompanhamento para a profissional ver pacientes,
+                sinais de evolucao e ultimos registros.
+              </p>
+            </div>
+            <div class="badge" id="panelBadge">Painel: aline</div>
+          </div>
+
+          <div class="panel-layout">
+            <aside class="patients-list">
+              <h3>Pacientes</h3>
+              <div class="patient-buttons" id="patientButtons"></div>
+              <div class="invite-row">
+                <input id="inviteEmailInput" type="email" placeholder="email da paciente" />
+                <button id="inviteButton" type="button">Convidar</button>
+              </div>
+              <p class="save-note" id="inviteNote">Convites aparecem aqui como simulacao.</p>
+            </aside>
+
+            <section class="patient-detail">
+              <div class="detail-top">
+                <div>
+                  <h3 id="selectedPatientName">Paciente</h3>
+                  <p id="selectedPatientGoal">Objetivo</p>
+                </div>
+                <span class="status good" id="selectedPatientStatus">Em dia</span>
+              </div>
+              <div class="metrics">
+                <div class="metric">
+                  <span>Adesao</span>
+                  <strong id="patientAdherence">0%</strong>
+                </div>
+                <div class="metric">
+                  <span>Diarios</span>
+                  <strong id="patientDiaries">0</strong>
+                </div>
+                <div class="metric">
+                  <span>Ultimo envio</span>
+                  <strong id="patientLastEntry">-</strong>
+                </div>
+              </div>
+              <div class="timeline" id="patientTimeline"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="patient-panel" id="patientPanel">
+      <div class="wrap">
+        <div class="patient-shell">
+          <div class="patient-head">
+            <div>
+              <h2>Painel do paciente</h2>
+              <p>
+                Area do paciente para acompanhar rotina, progresso, conteudos
+                liberados e proximas acoes dentro do app da nutricionista.
+              </p>
+            </div>
+            <div class="badge" id="patientPanelBadge">Paciente: aline</div>
+          </div>
+
+          <div class="patient-grid">
+            <section class="patient-summary">
+              <div class="progress-card">
+                <div class="progress-top">
+                  <h3 id="patientHomeName">Mariana Costa</h3>
+                  <span class="status good" id="patientHomeStatus">Em dia</span>
+                </div>
+                <p class="save-note" id="patientHomeGoal">Reducao de medidas</p>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="patientProgressFill" style="width: 92%"></div>
+                </div>
+                <p class="save-note" id="patientProgressText">92% de adesao semanal</p>
+              </div>
+
+              <div class="patient-actions">
+                <div class="patient-action">
+                  <div>
+                    <strong>Preencher diario</strong>
+                    <span>Registrar alimentacao, sintomas e observacoes.</span>
+                  </div>
+                  <span class="status good">Hoje</span>
+                </div>
+                <div class="patient-action">
+                  <div>
+                    <strong>Ver orientacoes</strong>
+                    <span>Conteudos selecionados pela nutricionista.</span>
+                  </div>
+                  <span class="status good">3 novos</span>
+                </div>
+                <div class="patient-action">
+                  <div>
+                    <strong>Fotos de evolucao</strong>
+                    <span>Area futura para antes/depois e medidas.</span>
+                  </div>
+                  <span class="status watch">Em breve</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="patient-content">
+              <h3>Conteudos liberados</h3>
+              <div class="content-grid" id="patientContentList"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-panel" id="commercialPanel">
+      <div class="wrap">
+        <div class="commercial-shell">
+          <div class="commercial-head">
+            <div>
+              <h2>Painel comercial Lumina</h2>
+              <p>
+                Visao para vender, cadastrar e acompanhar nutricionistas clientes.
+                Aqui a Lumina controla os apps white-label ativos.
+              </p>
+            </div>
+            <div class="badge">Admin Lumina</div>
+          </div>
+
+          <div class="commercial-metrics">
+            <div class="commercial-card">
+              <span>Clientes ativos</span>
+              <strong id="activeClientsMetric">2</strong>
+            </div>
+            <div class="commercial-card">
+              <span>Pacientes na base</span>
+              <strong id="patientsMetric">6</strong>
+            </div>
+            <div class="commercial-card">
+              <span>Receita mensal</span>
+              <strong id="revenueMetric">R$ 794</strong>
+            </div>
+            <div class="commercial-card">
+              <span>Conversao demo</span>
+              <strong>32%</strong>
+            </div>
+          </div>
+
+          <div class="commercial-grid">
+            <section class="client-table">
+              <h3>Clientes white-label</h3>
+              <div class="client-row header">
+                <span>Cliente</span>
+                <span>Plano</span>
+                <span>Status</span>
+                <span>Pacientes</span>
+              </div>
+              <div id="clientRows"></div>
+            </section>
+
+            <section class="new-client">
+              <h3>Novo cliente</h3>
+              <div class="new-client-form">
+                <input id="newClientNameInput" type="text" placeholder="Nome da nutricionista" />
+                <input id="newClientSlugInput" type="text" placeholder="Slug do app, ex: dra-ana" />
+                <select id="newClientPlanInput">
+                  <option value="starter">Starter - R$ 197/mês</option>
+                  <option value="pro">Pro - R$ 397/mês</option>
+                  <option value="premium">Premium - R$ 697/mês</option>
+                </select>
+                <button id="createClientButton" type="button">Criar cliente demo</button>
+              </div>
+              <p class="save-note" id="createClientNote">
+                Na versao real, isso cria um tenant no Firebase.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const defaultTenants = {
+        aline: {
+          slug: "aline",
+          appName: "Aline Nutri",
+          displayName: "Dra. Aline Martins",
+          primaryColor: "#346B5C",
+          secondaryColor: "#F3D9C5",
+          accentColor: "#D08770",
+          title: "Seu acompanhamento estetico em um so lugar",
+          subtitle: "Rotina, evolucao e conteudos organizados pela Dra. Aline.",
+          bio: "Nutricionista estetica focada em composicao corporal, energia e constancia."
+        },
+        carla: {
+          slug: "carla",
+          appName: "Carla Performance Nutri",
+          displayName: "Dra. Carla Ribeiro",
+          primaryColor: "#254E70",
+          secondaryColor: "#F7C59F",
+          accentColor: "#7D8CC4",
+          title: "Evolucao nutricional com clareza e metodo",
+          subtitle: "Acompanhe seus registros, metas e progresso com a Dra. Carla.",
+          bio: "Nutricionista com foco em performance, estetica e acompanhamento personalizado."
+        }
+      };
+
+      let tenants = loadTenants();
+      let activeSlug = "aline";
+      let activePatientId = "";
+
+      const demoPatients = {
+        aline: [
+          {
+            id: "aline-p1",
+            name: "Mariana Costa",
+            goal: "Reducao de medidas",
+            status: "Em dia",
+            statusType: "good",
+            adherence: "92%",
+            diaries: "18",
+            lastEntry: "Hoje",
+            timeline: [
+              ["Hoje", "Registrou boa energia, 7 copos de agua e sem compulsao."],
+              ["Ontem", "Relatou inchaco leve no fim do dia."],
+              ["Segunda", "Enviou fotos de evolucao e manteve plano alimentar."]
+            ]
+          },
+          {
+            id: "aline-p2",
+            name: "Bianca Alves",
+            goal: "Melhora de composicao corporal",
+            status: "Acompanhar",
+            statusType: "watch",
+            adherence: "68%",
+            diaries: "9",
+            lastEntry: "2 dias",
+            timeline: [
+              ["2 dias", "Pulou o jantar e relatou baixa energia."],
+              ["4 dias", "Registrou treino e fome aumentada a noite."],
+              ["Semana passada", "Ficou 3 dias sem preencher o diario."]
+            ]
+          },
+          {
+            id: "aline-p3",
+            name: "Renata Lima",
+            goal: "Rotina pos-procedimento",
+            status: "Em dia",
+            statusType: "good",
+            adherence: "86%",
+            diaries: "14",
+            lastEntry: "Hoje",
+            timeline: [
+              ["Hoje", "Sem sintomas relevantes e boa ingestao de agua."],
+              ["Ontem", "Sono regular, alimentacao dentro do combinado."],
+              ["Sexta", "Relatou melhora de disposicao."]
+            ]
+          }
+        ],
+        carla: [
+          {
+            id: "carla-p1",
+            name: "Juliana Rocha",
+            goal: "Performance e definicao",
+            status: "Em dia",
+            statusType: "good",
+            adherence: "89%",
+            diaries: "21",
+            lastEntry: "Hoje",
+            timeline: [
+              ["Hoje", "Treino completo e refeicoes planejadas."],
+              ["Ontem", "Boa energia, fome controlada."],
+              ["Segunda", "Ajuste de carboidrato no pre-treino."]
+            ]
+          },
+          {
+            id: "carla-p2",
+            name: "Patricia Melo",
+            goal: "Reeducacao alimentar",
+            status: "Acompanhar",
+            statusType: "watch",
+            adherence: "61%",
+            diaries: "7",
+            lastEntry: "3 dias",
+            timeline: [
+              ["3 dias", "Relatou dificuldade no fim de semana."],
+              ["5 dias", "Baixa ingestao de agua."],
+              ["Semana passada", "Retomou cafe da manha planejado."]
+            ]
+          },
+          {
+            id: "carla-p3",
+            name: "Camila Duarte",
+            goal: "Ganho de massa magra",
+            status: "Em dia",
+            statusType: "good",
+            adherence: "94%",
+            diaries: "24",
+            lastEntry: "Hoje",
+            timeline: [
+              ["Hoje", "Bateu meta de proteina e registrou treino."],
+              ["Ontem", "Sono bom e sem sintomas digestivos."],
+              ["Segunda", "Peso estavel, medidas evoluindo."]
+            ]
+          }
+        ]
+      };
+
+      const tenantContents = {
+        aline: [
+          ["Guia de organizacao alimentar", "Como montar uma rotina simples para manter constancia durante a semana."],
+          ["Checklist anti-inchaco", "Pontos para observar agua, sono, sodio e horarios das refeicoes."],
+          ["Preparacao para fotos de evolucao", "Orientacoes para padronizar luz, postura e horario."]
+        ],
+        carla: [
+          ["Pre-treino inteligente", "Sugestoes para ajustar energia antes dos treinos sem exageros."],
+          ["Proteina no dia a dia", "Ideias praticas para bater a meta proteica com alimentos comuns."],
+          ["Rotina de recuperacao", "Sono, hidratacao e refeicoes para melhorar resposta ao treino."]
+        ]
+      };
+
+      const marketNutritionists = [
+        {
+          id: "aline",
+          name: "Dra. Aline Martins",
+          city: "Sao Paulo, SP",
+          category: "estetica",
+          price: "R$ 320",
+          rating: "4.9",
+          bio: "Nutricionista estetica focada em composicao corporal, energia, pele e constancia.",
+          tags: ["Nutricao estetica", "Emagrecimento", "Composicao corporal"]
+        },
+        {
+          id: "carla",
+          name: "Dra. Carla Ribeiro",
+          city: "Online, Brasil",
+          category: "performance",
+          price: "R$ 397",
+          rating: "4.8",
+          bio: "Especialista em performance, definicao muscular e rotina alimentar para mulheres ativas.",
+          tags: ["Performance", "Definicao", "Ganho de massa"]
+        },
+        {
+          id: "helena",
+          name: "Dra. Helena Praxedes",
+          city: "Florianopolis, SC",
+          category: "estetica",
+          price: "R$ 360",
+          rating: "5.0",
+          bio: "Foco em pre e pos-procedimentos esteticos, drenagem nutricional e acompanhamento proximo.",
+          tags: ["Pre-procedimentos", "Drenagem", "Saude feminina"]
+        },
+        {
+          id: "mariana",
+          name: "Dra. Mariana Castilho",
+          city: "Rio de Janeiro, RJ",
+          category: "emagrecimento",
+          price: "R$ 290",
+          rating: "4.9",
+          bio: "Atendimento gentil para emagrecimento saudavel, comportamento alimentar e rotina possivel.",
+          tags: ["Emagrecimento", "Comportamento", "Celulite"]
+        }
+      ];
+
+      let activeMarketNutriId = "aline";
+
+      let commercialClients = [
+        {
+          name: "Dra. Aline Martins",
+          slug: "aline",
+          plan: "Pro",
+          status: "Ativo",
+          patients: 24,
+          monthly: 397
+        },
+        {
+          name: "Dra. Carla Ribeiro",
+          slug: "carla",
+          plan: "Premium",
+          status: "Ativo",
+          patients: 31,
+          monthly: 697
+        }
+      ];
+
+      const ids = [
+        "brandInitial",
+        "appName",
+        "displayName",
+        "title",
+        "subtitle",
+        "profileInitial",
+        "profileName",
+        "bio",
+        "tenantBadge",
+        "editorBadge",
+        "appNameInput",
+        "displayNameInput",
+        "titleInput",
+        "subtitleInput",
+        "bioInput",
+        "primaryColorInput",
+        "secondaryColorInput",
+        "accentColorInput",
+        "saveNote",
+        "diaryBadge",
+        "diaryDateInput",
+        "energyInput",
+        "waterInput",
+        "moodInput",
+        "mealsInput",
+        "notesInput",
+        "diaryItems",
+        "panelBadge",
+        "patientButtons",
+        "selectedPatientName",
+        "selectedPatientGoal",
+        "selectedPatientStatus",
+        "patientAdherence",
+        "patientDiaries",
+        "patientLastEntry",
+        "patientTimeline",
+        "inviteEmailInput",
+        "inviteNote",
+        "patientPanelBadge",
+        "patientHomeName",
+        "patientHomeStatus",
+        "patientHomeGoal",
+        "patientProgressFill",
+        "patientProgressText",
+        "patientContentList",
+        "marketSearchInput",
+        "marketFilterInput",
+        "marketCards",
+        "marketProfileInitial",
+        "marketProfileCity",
+        "marketProfileName",
+        "marketProfileBio",
+        "marketProfileTags",
+        "marketProfilePrice",
+        "marketProfileRating",
+        "connectionNote",
+        "clientRows",
+        "activeClientsMetric",
+        "patientsMetric",
+        "revenueMetric",
+        "newClientNameInput",
+        "newClientSlugInput",
+        "newClientPlanInput",
+        "createClientNote"
+      ].reduce((items, id) => {
+        items[id] = document.getElementById(id);
+        return items;
+      }, {});
+
+      function cloneDefaults() {
+        return JSON.parse(JSON.stringify(defaultTenants));
+      }
+
+      function loadTenants() {
+        const saved = localStorage.getItem("lumina-demo-tenants");
+
+        if (!saved) {
+          return cloneDefaults();
+        }
+
+        try {
+          return { ...cloneDefaults(), ...JSON.parse(saved) };
+        } catch (error) {
+          return cloneDefaults();
+        }
+      }
+
+      function saveTenants() {
+        localStorage.setItem("lumina-demo-tenants", JSON.stringify(tenants));
+      }
+
+      function setTenant(slug) {
+        activeSlug = slug;
+        const tenant = tenants[slug];
+        document.documentElement.style.setProperty("--primary", tenant.primaryColor);
+        document.documentElement.style.setProperty("--secondary", tenant.secondaryColor);
+        document.documentElement.style.setProperty("--accent", tenant.accentColor);
+
+        ids.brandInitial.textContent = tenant.displayName.slice(0, 1);
+        ids.profileInitial.textContent = tenant.displayName.slice(0, 1);
+        ids.appName.textContent = tenant.appName;
+        ids.displayName.textContent = tenant.displayName;
+        ids.profileName.textContent = tenant.displayName;
+        ids.title.textContent = tenant.title;
+        ids.subtitle.textContent = tenant.subtitle;
+        ids.bio.textContent = tenant.bio;
+        ids.tenantBadge.textContent = "Tenant: " + tenant.slug;
+        ids.editorBadge.textContent = "Editando: " + tenant.displayName;
+
+        document.getElementById("alineButton").classList.toggle("active", slug === "aline");
+        document.getElementById("carlaButton").classList.toggle("active", slug === "carla");
+        fillEditor(tenant);
+        ids.diaryBadge.textContent = "Diario: " + tenant.slug;
+        ids.panelBadge.textContent = "Painel: " + tenant.slug;
+        activePatientId = demoPatients[slug][0].id;
+        renderDiary();
+        renderPatients();
+        renderPatientHome();
+      }
+
+      function fillEditor(tenant) {
+        ids.appNameInput.value = tenant.appName;
+        ids.displayNameInput.value = tenant.displayName;
+        ids.titleInput.value = tenant.title;
+        ids.subtitleInput.value = tenant.subtitle;
+        ids.bioInput.value = tenant.bio;
+        ids.primaryColorInput.value = tenant.primaryColor;
+        ids.secondaryColorInput.value = tenant.secondaryColor;
+        ids.accentColorInput.value = tenant.accentColor;
+      }
+
+      function readEditor() {
+        return {
+          ...tenants[activeSlug],
+          appName: ids.appNameInput.value,
+          displayName: ids.displayNameInput.value,
+          title: ids.titleInput.value,
+          subtitle: ids.subtitleInput.value,
+          bio: ids.bioInput.value,
+          primaryColor: ids.primaryColorInput.value,
+          secondaryColor: ids.secondaryColorInput.value,
+          accentColor: ids.accentColorInput.value
+        };
+      }
+
+      function updatePreviewFromEditor() {
+        tenants[activeSlug] = readEditor();
+        setTenant(activeSlug);
+      }
+
+      [
+        "appNameInput",
+        "displayNameInput",
+        "titleInput",
+        "subtitleInput",
+        "bioInput",
+        "primaryColorInput",
+        "secondaryColorInput",
+        "accentColorInput"
+      ].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updatePreviewFromEditor);
+      });
+
+      document.getElementById("saveBrandButton").addEventListener("click", () => {
+        tenants[activeSlug] = readEditor();
+        saveTenants();
+        setTenant(activeSlug);
+        ids.saveNote.textContent = "Personalizacao salva nesta demo.";
+      });
+
+      document.getElementById("resetBrandButton").addEventListener("click", () => {
+        tenants[activeSlug] = JSON.parse(JSON.stringify(defaultTenants[activeSlug]));
+        saveTenants();
+        setTenant(activeSlug);
+        ids.saveNote.textContent = "Padrao restaurado para esta nutricionista.";
+      });
+
+      document.getElementById("editBrandButton").addEventListener("click", () => {
+        document.getElementById("brandEditor").scrollIntoView({ behavior: "smooth" });
+      });
+
+      function diaryStorageKey() {
+        return "lumina-demo-diary-" + activeSlug;
+      }
+
+      function loadDiary() {
+        const saved = localStorage.getItem(diaryStorageKey());
+
+        if (!saved) {
+          return [];
+        }
+
+        try {
+          return JSON.parse(saved);
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function saveDiary(entries) {
+        localStorage.setItem(diaryStorageKey(), JSON.stringify(entries));
+      }
+
+      function renderDiary() {
+        const entries = loadDiary();
+
+        if (!entries.length) {
+          ids.diaryItems.innerHTML =
+            '<p class="diary-empty">Nenhum registro ainda para este app. Salve um diario para ver o historico aparecer aqui.</p>';
+          return;
+        }
+
+        ids.diaryItems.innerHTML = entries
+          .map(
+            (entry) => `
+              <article class="diary-item">
+                <strong>${entry.date || "Sem data"}</strong>
+                <p>${entry.meals || "Refeicoes nao informadas."}</p>
+                <p>${entry.notes || "Sem observacoes adicionais."}</p>
+                <div class="diary-meta">
+                  <span class="diary-chip">Energia: ${entry.energy || "-"}/10</span>
+                  <span class="diary-chip">Agua: ${entry.water || "0"} copos</span>
+                  <span class="diary-chip">${entry.mood || "Sem humor"}</span>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function clearDiaryForm() {
+        ids.energyInput.value = "";
+        ids.waterInput.value = "";
+        ids.moodInput.value = "";
+        ids.mealsInput.value = "";
+        ids.notesInput.value = "";
+      }
+
+      document.getElementById("saveDiaryButton").addEventListener("click", () => {
+        const entries = loadDiary();
+        entries.unshift({
+          date: ids.diaryDateInput.value,
+          energy: ids.energyInput.value,
+          water: ids.waterInput.value,
+          mood: ids.moodInput.value,
+          meals: ids.mealsInput.value,
+          notes: ids.notesInput.value
+        });
+        saveDiary(entries);
+        clearDiaryForm();
+        renderDiary();
+      });
+
+      document.getElementById("clearDiaryButton").addEventListener("click", () => {
+        localStorage.removeItem(diaryStorageKey());
+        renderDiary();
+      });
+
+      function getActivePatients() {
+        return demoPatients[activeSlug];
+      }
+
+      function getSelectedPatient() {
+        return getActivePatients().find((patient) => patient.id === activePatientId) || getActivePatients()[0];
+      }
+
+      function renderPatients() {
+        const patients = getActivePatients();
+        ids.patientButtons.innerHTML = patients
+          .map(
+            (patient) => `
+              <button class="patient-button ${patient.id === activePatientId ? "active" : ""}" data-patient-id="${patient.id}" type="button">
+                <span class="patient-main">
+                  <span class="patient-avatar">${patient.name.slice(0, 1)}</span>
+                  <span>
+                    <span class="patient-name">${patient.name}</span>
+                    <span class="patient-sub">${patient.goal}</span>
+                  </span>
+                </span>
+                <span class="status ${patient.statusType}">${patient.status}</span>
+              </button>
+            `
+          )
+          .join("");
+
+        document.querySelectorAll(".patient-button").forEach((button) => {
+          button.addEventListener("click", () => {
+            activePatientId = button.getAttribute("data-patient-id");
+            renderPatients();
+          });
+        });
+
+        renderPatientDetail();
+        renderPatientHome();
+      }
+
+      function renderPatientDetail() {
+        const patient = getSelectedPatient();
+        ids.selectedPatientName.textContent = patient.name;
+        ids.selectedPatientGoal.textContent = patient.goal;
+        ids.selectedPatientStatus.textContent = patient.status;
+        ids.selectedPatientStatus.className = "status " + patient.statusType;
+        ids.patientAdherence.textContent = patient.adherence;
+        ids.patientDiaries.textContent = patient.diaries;
+        ids.patientLastEntry.textContent = patient.lastEntry;
+        ids.patientTimeline.innerHTML = patient.timeline
+          .map(
+            ([date, note]) => `
+              <article class="timeline-item">
+                <strong>${date}</strong>
+                <p>${note}</p>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function renderPatientHome() {
+        const patient = getSelectedPatient();
+        ids.patientPanelBadge.textContent = "Paciente: " + activeSlug;
+        ids.patientHomeName.textContent = patient.name;
+        ids.patientHomeGoal.textContent = patient.goal;
+        ids.patientHomeStatus.textContent = patient.status;
+        ids.patientHomeStatus.className = "status " + patient.statusType;
+        ids.patientProgressFill.style.width = patient.adherence;
+        ids.patientProgressText.textContent = patient.adherence + " de adesao semanal";
+        ids.patientContentList.innerHTML = tenantContents[activeSlug]
+          .map(
+            ([title, description]) => `
+              <article class="content-card">
+                <strong>${title}</strong>
+                <p>${description}</p>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function getSelectedMarketNutri() {
+        return (
+          marketNutritionists.find((nutritionist) => nutritionist.id === activeMarketNutriId) ||
+          marketNutritionists[0]
+        );
+      }
+
+      function renderMarketplace() {
+        const query = ids.marketSearchInput.value.trim().toLowerCase();
+        const filter = ids.marketFilterInput.value;
+        const filtered = marketNutritionists.filter((nutritionist) => {
+          const text = [nutritionist.name, nutritionist.city, nutritionist.bio, nutritionist.tags.join(" ")]
+            .join(" ")
+            .toLowerCase();
+          const matchesQuery = !query || text.includes(query);
+          const matchesFilter = filter === "all" || nutritionist.category === filter;
+          return matchesQuery && matchesFilter;
+        });
+
+        ids.marketCards.innerHTML = filtered
+          .map(
+            (nutritionist) => `
+              <button class="nutritionist-card ${nutritionist.id === activeMarketNutriId ? "active" : ""}" data-market-id="${nutritionist.id}" type="button">
+                <span class="nutritionist-photo">${nutritionist.name.slice(0, 1)}</span>
+                <span>
+                  <h3>${nutritionist.name}</h3>
+                  <p>${nutritionist.city} · ${nutritionist.rating} estrelas · a partir de ${nutritionist.price}</p>
+                  <p>${nutritionist.bio}</p>
+                  <span class="tag-row">
+                    ${nutritionist.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+                  </span>
+                </span>
+              </button>
+            `
+          )
+          .join("");
+
+        document.querySelectorAll(".nutritionist-card").forEach((button) => {
+          button.addEventListener("click", () => {
+            activeMarketNutriId = button.getAttribute("data-market-id");
+            renderMarketplace();
+          });
+        });
+
+        renderMarketProfile();
+      }
+
+      function renderMarketProfile() {
+        const nutritionist = getSelectedMarketNutri();
+        ids.marketProfileInitial.textContent = nutritionist.name.slice(0, 1);
+        ids.marketProfileCity.textContent = nutritionist.city;
+        ids.marketProfileName.textContent = nutritionist.name;
+        ids.marketProfileBio.textContent = nutritionist.bio;
+        ids.marketProfilePrice.textContent = nutritionist.price;
+        ids.marketProfileRating.textContent = nutritionist.rating;
+        ids.marketProfileTags.innerHTML = nutritionist.tags
+          .map((tag) => `<span class="tag">${tag}</span>`)
+          .join("");
+      }
+
+      ids.marketSearchInput.addEventListener("input", renderMarketplace);
+      ids.marketFilterInput.addEventListener("change", renderMarketplace);
+
+      document.getElementById("requestConnectionButton").addEventListener("click", () => {
+        const nutritionist = getSelectedMarketNutri();
+        ids.connectionNote.textContent =
+          "Solicitacao enviada para " + nutritionist.name + ". Na versao real, ela aparece no painel da nutricionista.";
+      });
+
+      document.getElementById("openWhiteLabelButton").addEventListener("click", () => {
+        const nutritionist = getSelectedMarketNutri();
+
+        if (nutritionist.id === "aline" || nutritionist.id === "carla") {
+          setTenant(nutritionist.id);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
+        ids.connectionNote.textContent =
+          "Este perfil ainda nao tem app white-label demo. Aline e Carla ja estao configuradas.";
+      });
+
+      document.getElementById("inviteButton").addEventListener("click", () => {
+        const email = ids.inviteEmailInput.value.trim();
+
+        if (!email) {
+          ids.inviteNote.textContent = "Digite um email para simular o convite.";
+          return;
+        }
+
+        ids.inviteNote.textContent = "Convite simulado enviado para " + email + " no app " + activeSlug + ".";
+        ids.inviteEmailInput.value = "";
+      });
+
+      function formatCurrency(value) {
+        return "R$ " + value.toLocaleString("pt-BR");
+      }
+
+      function renderCommercialPanel() {
+        const activeClients = commercialClients.filter((client) => client.status === "Ativo");
+        const patientTotal = commercialClients.reduce((sum, client) => sum + client.patients, 0);
+        const revenueTotal = commercialClients.reduce((sum, client) => sum + client.monthly, 0);
+
+        ids.activeClientsMetric.textContent = String(activeClients.length);
+        ids.patientsMetric.textContent = String(patientTotal);
+        ids.revenueMetric.textContent = formatCurrency(revenueTotal);
+        ids.clientRows.innerHTML = commercialClients
+          .map(
+            (client) => `
+              <div class="client-row">
+                <span>
+                  <span class="client-name">${client.name}</span>
+                  <span class="client-slug">/${client.slug}</span>
+                </span>
+                <span class="plan-pill">${client.plan}</span>
+                <span class="status good">${client.status}</span>
+                <span>${client.patients}</span>
+              </div>
+            `
+          )
+          .join("");
+      }
+
+      document.getElementById("createClientButton").addEventListener("click", () => {
+        const name = ids.newClientNameInput.value.trim();
+        const slug = ids.newClientSlugInput.value.trim().toLowerCase().replaceAll(" ", "-");
+        const plan = ids.newClientPlanInput.value;
+        const planLabels = {
+          starter: ["Starter", 197],
+          pro: ["Pro", 397],
+          premium: ["Premium", 697]
+        };
+
+        if (!name || !slug) {
+          ids.createClientNote.textContent = "Informe nome e slug para criar o cliente demo.";
+          return;
+        }
+
+        commercialClients.push({
+          name,
+          slug,
+          plan: planLabels[plan][0],
+          status: "Ativo",
+          patients: 0,
+          monthly: planLabels[plan][1]
+        });
+
+        ids.newClientNameInput.value = "";
+        ids.newClientSlugInput.value = "";
+        ids.createClientNote.textContent = "Cliente demo criado: /" + slug + ".";
+        renderCommercialPanel();
+      });
+
+      ids.diaryDateInput.value = new Date().toISOString().slice(0, 10);
+      document.getElementById("alineButton").addEventListener("click", () => setTenant("aline"));
+      document.getElementById("carlaButton").addEventListener("click", () => setTenant("carla"));
+      setTenant(activeSlug);
+      renderMarketplace();
+      renderCommercialPanel();
+    </script>
+  </body>
+</html>
